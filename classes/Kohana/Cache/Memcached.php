@@ -40,6 +40,19 @@ class Kohana_Cache_Memcached extends Cache {
     'poll_timeout'         => Memcached::OPT_POLL_TIMEOUT,
     'cache_lookups'        => Memcached::OPT_CACHE_LOOKUPS,
     'server_failure_limit' => Memcached::OPT_SERVER_FAILURE_LIMIT,
+    'client_mode'          => Memcached::OPT_CLIENT_MODE,
+  );
+
+  /**
+   * Client Mode Map
+   * (for Amazon ElastiCache)
+   *
+   * @var array
+   */
+  protected $_client_mode_map = array
+  (
+    'static'  => Memcached::STATIC_CLIENT_MODE,
+    'dynamic' => Memcached::DYNAMIC_CLIENT_MODE,
   );
 
   /**
@@ -148,6 +161,10 @@ class Kohana_Cache_Memcached extends Cache {
 
           case 'distribution':
             $value = $this->_distribution_map[$value];
+          break;
+
+          case 'client_mode'
+            $value = $this->_client_mode_map[$value];
           break;
 
           case 'prefix_key':
